@@ -1,0 +1,28 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: ai-insights-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+carerelay:
+  ai:
+    claude-api-key: ${CLAUDE_API_KEY:}
+  services:
+    referral-url: ${REFERRAL_SERVICE_URL:http://localhost:8081}
+    patient-url: ${PATIENT_SERVICE_URL:http://localhost:8082}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

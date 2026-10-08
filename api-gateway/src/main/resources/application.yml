@@ -1,0 +1,60 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        # Auth Service (Public endpoints)
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URI:http://localhost:8085}
+          predicates:
+            - Path=/api/v1/auth/**
+
+        # Referral Service
+        - id: referral-service
+          uri: ${REFERRAL_SERVICE_URI:http://localhost:8081}
+          predicates:
+            - Path=/api/v1/referrals/**
+
+        # Patient Record Service
+        - id: patient-record-service
+          uri: ${PATIENT_RECORD_SERVICE_URI:http://localhost:8082}
+          predicates:
+            - Path=/api/v1/patients/**, /api/v1/records/**
+
+        # Notification Service
+        - id: notification-service
+          uri: ${NOTIFICATION_SERVICE_URI:http://localhost:8083}
+          predicates:
+            - Path=/api/v1/notifications/**
+
+        # AI Insights Service
+        - id: ai-insights-service
+          uri: ${AI_INSIGHTS_SERVICE_URI:http://localhost:8084}
+          predicates:
+            - Path=/api/v1/ai/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    prefer-ip-address: true
+
+carerelay:
+  jwt:
+    secret: ${JWT_SECRET:CareRelaySuperSecretKeyForDevelopmentPurposesMustBeAtLeast256BitsLong!}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
