@@ -2,8 +2,6 @@
 
 A production-grade, distributed microservices platform demonstrating the **Saga Pattern**, **Apache Kafka** event-driven messaging, **Spring Cloud Gateway**, **Resilience4j**, and an **AI clinical summarization layer**.
 
-Built by **Tushar Dalal** as a showcase project for Master's in Computer Science admissions (PoliMi, Sapienza, Bologna).
-
 ---
 
 ## 💡 100% Free Resources Architecture
